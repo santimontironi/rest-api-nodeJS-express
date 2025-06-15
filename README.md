@@ -12,8 +12,8 @@
 
 1. Clonar este repositorio: git clone https://github.com/santimontironi/rest-api-node
 2. Instalar las dependencias: npm install
-3.Iniciar el servidor: node index.js
-Podés usar nodemon para desarrollo: npx nodemon index.js
+3. Iniciar el servidor: node index.js
+### Podés usar nodemon para desarrollo: npx nodemon index.js
 
 ## Endpoints disponibles
 
