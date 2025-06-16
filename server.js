@@ -33,12 +33,21 @@ app.post('/products',(req,res) => {
     res.send(newProduct)
 })
 
-app.put('/products',(req,res) => {
+app.put('/products/:id',(req,res) => {
     res.send("Editando productos")
 })
 
-app.delete('/products',(req,res) => {
-    res.send("Eliminando productos")
+app.delete('/products/:id',(req,res) => {
+    const product = products.find(x => x.id === parseInt(req.params.id))
+    if(product){
+        const newProducts = products.filter(p => p.id !== parseInt(req.params.id))
+        res.json({
+            message:'Producto eliminado correctamente',
+            productsNew: newProducts
+        })
+    }else{
+        res.status(404).send("No hay un producto con ese ID")
+    }
 })
 
 app.listen(3000)
