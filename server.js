@@ -34,7 +34,24 @@ app.post('/products',(req,res) => {
 })
 
 app.put('/products/:id',(req,res) => {
-    res.send("Editando productos")
+    const newData = req.body
+    const product = products.find(x => x.id === parseInt(req.params.id))
+    if(product){
+        const productosActualizados = products.map(p => (
+            p.id === parseInt(req.params.id) ? {...p,...newData} : p
+        ))
+
+        products.length = 0;
+        products.push(...productosActualizados);
+
+        res.json({
+            message: 'Producto editado correctamente',
+            productsNew: products
+        });
+
+    }else{
+        res.status(404).send("Product not found")
+    }
 })
 
 app.delete('/products/:id',(req,res) => {
@@ -46,7 +63,7 @@ app.delete('/products/:id',(req,res) => {
             productsNew: newProducts
         })
     }else{
-        res.status(404).send("No hay un producto con ese ID")
+        res.status(404).send("Product not found")
     }
 })
 
