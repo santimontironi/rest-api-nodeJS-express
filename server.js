@@ -41,11 +41,11 @@ app.put('/products/:id',(req,res) => {
             p.id === parseInt(req.params.id) ? {...p,...newData} : p
         ))
 
-        products.length = 0;
-        products.push(...productosActualizados);
+        products.length = 0
+        products.push(...productosActualizados) //se agrega cada objeto por separado
 
         res.json({
-            message: 'Producto editado correctamente',
+            message: 'Product edited correctly',
             productsNew: products
         });
 
@@ -59,7 +59,7 @@ app.delete('/products/:id',(req,res) => {
     if(product){
         const newProducts = products.filter(p => p.id !== parseInt(req.params.id))
         res.json({
-            message:'Producto eliminado correctamente',
+            message:'Producto deleted correctly',
             productsNew: newProducts
         })
     }else{
