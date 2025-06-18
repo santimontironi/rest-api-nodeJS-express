@@ -1,24 +1,162 @@
-# CRUD de Productos con Express
 
-### Este proyecto es una **REST API básica** creada con **Express.js**, que forma parte del temario de un curso de backend con Node.js y Express. Simula un CRUD (Crear, Leer, Actualizar y Eliminar) de productos utilizando rutas HTTP básicas.
+# 📦 Products API
 
-## Tecnologías utilizadas
+API REST simple para gestión de productos, construida con **Node.js** y **Express.js**. Permite operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre una colección de productos en memoria.
 
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [Morgan](https://www.npmjs.com/package/morgan) (middleware para logging de peticiones)
+## 🚀 Tecnologías utilizadas
 
-## Instalación
+- Node.js
+- Express.js
+- Morgan (logger)
+- JSON (para requests/responses)
 
-1. Clonar este repositorio: git clone https://github.com/santimontironi/rest-api-nodeJS-express
-2. Instalar las dependencias: npm install
-3. Iniciar el servidor: node index.js
-### Podés usar nodemon para desarrollo: npx nodemon index.js
+---
 
-## Endpoints disponibles
+## ▶️ Inicio del servidor
 
-- GET	/products	Obtener todos los productos
-- POST	/products	Crear un nuevo producto
-- PUT	/products:id Editar un producto existente
-- DELETE /products:id	Eliminar un producto
-- GET	/products:id	Obtener un producto por ID 
+```bash
+node index.js
+```
+
+Por defecto, se ejecuta en:
+
+```
+http://localhost:3000
+```
+
+---
+
+## 📌 Endpoints disponibles
+
+### 📄 Obtener todos los productos
+
+- **Método:** `GET`
+- **Ruta:** `/products`
+
+#### ✅ Respuesta exitosa
+```json
+[
+  {
+    "id": 1,
+    "name": "laptop",
+    "price": 3000
+  }
+]
+```
+
+---
+
+### 🔍 Obtener producto por ID
+
+- **Método:** `GET`
+- **Ruta:** `/products/:id`
+
+#### 🔁 Parámetros de URL
+- `id` (número): ID del producto a buscar.
+
+#### ✅ Respuesta exitosa
+```json
+{
+  "id": 1,
+  "name": "laptop",
+  "price": 3000
+}
+```
+
+#### ❌ Respuesta si no se encuentra
+```
+Product not found.
+```
+
+---
+
+### ➕ Crear nuevo producto
+
+- **Método:** `POST`
+- **Ruta:** `/products`
+- **Encabezados:** `Content-Type: application/json`
+
+#### 📦 Body (JSON)
+```json
+{
+  "name": "monitor",
+  "price": 500
+}
+```
+
+#### ✅ Respuesta exitosa
+```json
+{
+  "name": "monitor",
+  "price": 500,
+  "id": 2
+}
+```
+
+---
+
+### ✏️ Actualizar un producto
+
+- **Método:** `PUT`
+- **Ruta:** `/products/:id`
+- **Encabezados:** `Content-Type: application/json`
+
+#### 📦 Body (JSON)
+```json
+{
+  "price": 3500
+}
+```
+
+#### ✅ Respuesta exitosa
+```json
+{
+  "message": "Product edited correctly",
+  "productsNew": [
+    {
+      "id": 1,
+      "name": "laptop",
+      "price": 3500
+    },
+    ...
+  ]
+}
+```
+
+#### ❌ Respuesta si no se encuentra
+```
+Product not found
+```
+
+---
+
+### ❌ Eliminar un producto
+
+- **Método:** `DELETE`
+- **Ruta:** `/products/:id`
+
+#### ✅ Respuesta exitosa
+```json
+{
+  "message": "Producto deleted correctly",
+  "productsNew": [
+    {
+      "id": 1,
+      "name": "laptop",
+      "price": 3000
+    }
+  ]
+}
+```
+
+#### ❌ Respuesta si no se encuentra
+```
+Product not found
+```
+
+---
+
+## 📝 Notas
+
+- Todos los productos se almacenan en memoria (array local), por lo que se reinician al reiniciar el servidor.
+- `Morgan` está configurado en modo `dev` para loguear las peticiones en consola.
